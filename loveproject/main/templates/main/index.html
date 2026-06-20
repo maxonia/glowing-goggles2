@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Ты в моём сердце 💗</title>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ты в моём сердце 💗</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <style>
         body {
             background: linear-gradient(120deg,#ffeeee 0%,#ffafcc 100%);
@@ -56,74 +62,7 @@
             height: 185px;
             position: relative;
             animation: pulse 1.25s infinite alternate;
-        }
-        .big-heart svg {
-            width: 100%; height: 100%;
-            display: block;
-        }
-        @keyframes pulse {
-            0%   { transform: scale(1);}
-            85%  { transform: scale(1.08);}
-            100% { transform: scale(0.98);}
-        }
-        .love-text {
-            font-family: 'Arial Rounded MT Bold', 'Segoe UI', Arial, sans-serif;
-            font-size: 2.2em;
-            padding: .2em 0 .2em 0;
-            color: #d72660;
-            text-shadow: 0 3px 12px #FFF,0 1px 0 #f9b9dd77;
-            opacity: 0;
-            animation: text-reveal 1.2s 0.7s cubic-bezier(.55,1.5,.79,1.01) forwards;
-        }
-        @keyframes text-reveal {
-            0% { opacity:0; transform: translateY(40px);}
-            100% { opacity:1; transform: none;}
-        }
-        .more-text {
-            margin: 5px auto 0 auto;
-            max-width: 490px;
-            font-size: 1.24em;
-            line-height: 1.57em;
-            color: #711136;
-            background: rgba(255,255,255,0.86);
-            box-shadow: 0 2px 15px #ff9ac580;
-            border-radius: 20px;
-            padding: 20px 22px;
-            text-align: left;
-            opacity: 0;
-            transform: translateY(28px) scale(0.97);
-            animation: more-reveal 1.1s 2.2s cubic-bezier(.62,2,.44,.92) forwards;
-        }
-        @keyframes more-reveal {
-            0%   { opacity:0; transform: translateY(28px) scale(0.97);}
-            100% { opacity:1; transform: none;}
-        }
-        .signature {
-            margin-top: 22px;
-            text-align: right;
-            color: #ae3169;
-            font-size: 1.14em;
-            opacity: 0;
-            animation: more-reveal 1.15s 4.1s forwards;
-        }
-        /* Маленькие сердечки вокруг */
-        .flamingos {
-            pointer-events: none;
-            position: absolute; left: 0; top: 0; width: 100%; height: 120%;
-            z-index: 2;
-        }
-        .floating-heart {
-            position: absolute;
-            opacity: 0.9;
-            width: 26px; height: 26px;
-            animation: floatup 2.5s cubic-bezier(.4,1.8,.63,.79) infinite;
-        }
-        @keyframes floatup {
-            0%      { transform: translateY(60px) scale(1); opacity: 0;}
-            8%      { opacity:1;}
-            85%     { opacity:1;}
-            100%    { transform: translateY(-110px) scale(.8); opacity:0; }
-        }
+            cursor: pointer;
     </style>
 </head>
 <body>
@@ -131,7 +70,8 @@
         <button class="magic-btn" id="goLove">Жмякни для магии 💌</button>
         <div class="heart-box" id="mainStuff">
             <div style="height:10px"></div>
-            <div class="big-heart">
+            <div class="hint" id="heartHint">Ну давай, жми на сердечко 👇</div>
+            <div class="big-heart" id="theHeart" title="Нажми на меня!">
                 <!-- Красивое SVG-сердце с мягкой градиентной заливкой! -->
                 <svg viewBox="0 0 200 185" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -153,7 +93,10 @@
                 </svg>
                 <div class="flamingos" id="lotHearts"></div>
             </div>
-            <div class="love-text">Я тебя очень сильно люблю! 💖</div>
+            <!-- Текстовые блоки скрыты до клика на сердце -->
+            <div class="love-text" id="loveText">
+                Я тебя очень сильно люблю! 💖
+            </div>
             <div class="more-text">
                 я хотел сделать для тебя что-то особенное <br>пусть этот скромный сюрприз напомнит
                 <br><br>
@@ -166,18 +109,35 @@
             </div>
             <div class="signature">
                 твой немного романтик, я 💌
-            </div>
+    </div>
         </div>
     </div>
     <script>
         let btn = document.getElementById('goLove');
         let mainStuff = document.getElementById('mainStuff');
         let flamingos = document.getElementById('lotHearts');
+        let theHeart = document.getElementById('theHeart');
+        let loveText = document.getElementById('loveText');
+        let moreText = document.getElementById('moreText');
+        let signBlock = document.getElementById('signBlock');
+        let hint = document.getElementById('heartHint');
+        let alreadyRevealed = false;
 
         btn.onclick = function() {
             btn.style.display = 'none';
             mainStuff.style.display = 'flex';
             sprinkleHearts();
+            hint.style.display = 'block';
+        };
+
+        theHeart.onclick = function() {
+            if (alreadyRevealed) return;
+            alreadyRevealed = true;
+            hint.style.opacity = 0.2;
+            // Появление основного текста
+            loveText.classList.add('shown');
+            setTimeout(() => moreText.classList.add('shown'), 1300);
+            setTimeout(() => signBlock.classList.add('shown'), 2700);
         };
 
         function sprinkleHearts() {
