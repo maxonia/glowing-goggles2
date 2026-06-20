@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <title>Ты в моём сердце 💗</title>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Ты в моём сердце 💗</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <style>
         body {
             background: linear-gradient(120deg,#ffeeee 0%,#ffafcc 100%);
@@ -63,6 +57,93 @@
             position: relative;
             animation: pulse 1.25s infinite alternate;
             cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+        .big-heart:hover {
+            box-shadow: 0 2px 28px #e34e7699;
+        }
+        .big-heart svg {
+            width: 100%; height: 100%;
+            display: block;
+        }
+        @keyframes pulse {
+            0%   { transform: scale(1);}
+            85%  { transform: scale(1.08);}
+            100% { transform: scale(0.98);}
+        }
+        .hint {
+            margin: 0 0 10px 0;
+            color: #c8376d;
+            font-size: 1.08em;
+            font-style: italic;
+            opacity: .85;
+            animation: fadein 1.3s .3s both;
+            pointer-events: none;
+        }
+        .love-text, .more-text, .signature {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .love-text.shown, .more-text.shown, .signature.shown {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .love-text {
+            font-family: 'Arial Rounded MT Bold', 'Segoe UI', Arial, sans-serif;
+            font-size: 2.2em;
+            padding: .2em 0 .2em 0;
+            color: #d72660;
+            text-align: center;
+            text-shadow: 0 3px 12px #FFF,0 1px 0 #f9b9dd77;
+            animation: text-reveal 1.2s cubic-bezier(.55,1.5,.79,1.01) forwards;
+        }
+        @keyframes text-reveal {
+            from { opacity:0; transform: translateY(40px);}
+            to   { opacity:1; transform: none;}
+        }
+        .more-text {
+            margin: 5px auto 0 auto;
+            max-width: 490px;
+            font-size: 1.24em;
+            line-height: 1.57em;
+            color: #711136;
+            background: rgba(255,255,255,0.86);
+            box-shadow: 0 2px 15px #ff9ac580;
+            border-radius: 20px;
+            padding: 20px 22px;
+            text-align: left;
+            transform: translateY(28px) scale(0.97);
+            animation: more-reveal 1.1s cubic-bezier(.62,2,.44,.92) forwards;
+        }
+        @keyframes more-reveal {
+            from   { opacity:0; transform: translateY(28px) scale(0.97);}
+            to { opacity:1; transform: none;}
+        }
+        .signature {
+            margin-top: 22px;
+            text-align: right;
+            color: #ae3169;
+            font-size: 1.14em;
+            animation: more-reveal 1.15s forwards;
+        }
+        /* Маленькие сердечки вокруг */
+        .flamingos {
+            pointer-events: none;
+            position: absolute; left: 0; top: 0; width: 100%; height: 120%;
+            z-index: 2;
+        }
+        .floating-heart {
+            position: absolute;
+            opacity: 0.9;
+            width: 26px; height: 26px;
+            animation: floatup 2.5s cubic-bezier(.4,1.8,.63,.79) infinite;
+        }
+        @keyframes floatup {
+            0%      { transform: translateY(60px) scale(1); opacity: 0;}
+            8%      { opacity:1;}
+            85%     { opacity:1;}
+            100%    { transform: translateY(-110px) scale(.8); opacity:0; }
+        }
     </style>
 </head>
 <body>
@@ -70,6 +151,7 @@
         <button class="magic-btn" id="goLove">Жмякни для магии 💌</button>
         <div class="heart-box" id="mainStuff">
             <div style="height:10px"></div>
+            <div class="hint" id="heartHint">Жмяк💌</div>
             <div class="big-heart" id="theHeart" title="Нажми на меня!">
                 <!-- Красивое SVG-сердце с мягкой градиентной заливкой! -->
                 <svg viewBox="0 0 200 185" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,18 +179,19 @@
                 Я тебя очень сильно люблю! 💖
             </div>
             <div class="more-text" id="moreText">
-                я хотел сделать для тебя что-то особенное <br>пусть этот скромный сюрприз напомнит
-                <br><br>
+               я хотел сделать для тебя что-то особенное <br>
+                пусть этот скромный сюрприз напомнит :<br><br>
                 ты невероятная, самая красивая, заботливая, добрая и умная девушка на свете, я благодарен судьбе, что мы встретились каждый миг рядом с тобой&nbsp;настоящее счастье для меня<br><br>
-                спасибо за твою поддержку, тепло, улыбку и просто за то, что ты есть<br>
+                 спасибо за твою поддержку, тепло, улыбку и просто за то, что ты есть<br>
                 <b>ты делаешь мою жизнь ярче, наполняешь её смыслом и волшебством</b>
                 <br><br>
                 я обещаю всегда тебя ценить, оберегать и делать всё, чтобы ты была счастлива<br>
                 <span style="color:#fa60a7; font-weight:bold;">Я ЛЮБЛЮ ТЕБЯ БЕЗУМНО!</span>
             </div>
             <div class="signature" id="signBlock">
-                твой немного романтик, я 💌
-    </div>
+                 твой немного романтик, я 💌
+
+            </div>
         </div>
     </div>
     <script>
